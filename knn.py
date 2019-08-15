@@ -8,9 +8,6 @@ from misc import *
 from exact_barycenter import *
 
 
-name2int = {'Iris-setosa':0, 'Iris-versicolor':1, 'Iris-virginica':2}
-
-
 def loadDataset(filename, split):
     with open(filename, 'r') as csvfile:
         lines = csv.reader(csvfile)
@@ -42,12 +39,6 @@ def getDistance(x1, x2, distance='euclidean'):
     else:
         print('UNKNOWN DISTANCE')
         return -1
-
-#def euclideanDistance(instance1, instance2, length):
-#    distance = 0
-#    for x in range(length):
-#        distance += pow((instance1[x] - instance2[x]), 2)
-#    return math.sqrt(distance)
 
 
 def getNeighbors(X_tr, x_te, k, distance):
