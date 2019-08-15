@@ -37,7 +37,7 @@ def inverse_histograms(mu, S, Sinv, method='linear'):
     cdfa = np.append(cdfa, 1)
 
     if S[0] < 0:
-        print('weird for a psd!')
+        #print('weird for a psd!')
         Sa = np.append(S[0]-1, Sa)
     else:
         # set it to zero in case of PSDs
