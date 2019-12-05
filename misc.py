@@ -1,17 +1,17 @@
 # collection of function to manipulate / preprocess data
-import pandas as pd
+#import pandas as pd
 import numpy as np
 import math
 
 
 def load_data(name):
-    
+
     if name == 'housing':
         df = pd.read_csv('../data/housing.csv', sep='\s+')
         X = df.values
         y = X[:, -1]; X = X[:, :-1]
         return X,y
-    
+
     print("No dataset named {}".format(name))
     return -1
 
@@ -34,7 +34,7 @@ def normalize(X_tr, X_te):
     """
     Remove training mean and standard deviation from all datasets
     """
-    # X mean -> 0
+    # Mean to 0
     m = np.mean(X_tr, 0)
     X_tr_n = X_tr - m
     X_te_n = X_te - m

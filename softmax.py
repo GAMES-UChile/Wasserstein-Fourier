@@ -119,7 +119,7 @@ class WSoftmax:
         elif self.distance == 'KL':
             for i in range(N):
                 for d in range(self.n_class):
-                    W2b[i, d+1] = np.sum(X[i,:] * np.log(self.bars[d,:] / X[i,:]))
+                    W2b[i, d+1] = np.sum(X[i,:] * np.log(X[i,:] / self.bars[d,:]))
         else:
             print("Unknown distance resquested")
             W2b = None

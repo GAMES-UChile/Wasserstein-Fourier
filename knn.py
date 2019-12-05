@@ -25,27 +25,31 @@ def loadDataset(filename, split):
         return random_split(X,y, prop_train=split, seed=13)
 
 
-def getDistance(x1, x2, distance='euclidean'):
+def getDistance(x1, x2, distance='euclidean', support=None):
 
     if distance == 'euclidean':
         return euclidean(x1, x2)
 
     elif distance == 'quantile':
-        support = np.linspace(0, 0.5, 501)
+        #support = np.linspace(0, 0.5, 501)
         # TODO: interpolation method='' should be a parameter in options
         _, q1 = inverse_histograms(x1, support, np.linspace(0, 1, 1000))
         _, q2 = inverse_histograms(x2, support, np.linspace(0, 1, 1000))
         return np.sqrt(np.sum((q1 - q2)**2))
+
+    elif distance == 'KL':
+        return -np.sum(x2 * np.log(x1 / x2))
+
     else:
         print('UNKNOWN DISTANCE')
         return -1
 
 
-def getNeighbors(X_tr, x_te, k, distance):
+def getNeighbors(X_tr, x_te, k, distance, support=None):
     distances = []
 
     for idx, x in enumerate(X_tr):
-        dist = getDistance(x, x_te, distance)
+        dist = getDistance(x, x_te, distance, support)
         distances.append((idx, dist))
     distances.sort(key=operator.itemgetter(1))
     idx_neighbors = []
@@ -73,19 +77,35 @@ def getAccuracy(y_te, predictions):
     return (correct/float(len(y_te))) * 100.0
 
 
-def main():
+def main(name):
     # prepare data
     trainingSet=[]
     testSet=[]
     split = 0.80
-    ks = [4, 5]
+    ks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 15]
     methods = ['euclidean', 'quantile']
-    n_seeds = 100
-    results = np.zeros((len(methods), n_seeds))
+    n_seeds = 10
+    results = np.zeros((len(methods), len(ks), n_seeds))
 
-    X = np.load('X.npy') 
-    y = np.load('y.npy')
+    # gun shot VS name:
+    # air_conditioner, car_horn, children_playing, dog_bark,
+    # drilling, engine_idling, jackhammer, siren,
+    # street_music
+    #name = 'dog_bark'
+    #X = np.load('X.npy') 
+    #y = np.load('y.npy')
+    X = np.load('data/urban_psds.npy')
+    y = np.load('data/urban_labels.npy')
 
+
+    #keep only gun shot and AC...
+    idxs = np.where(np.logical_or(y == name, y == 'gun_shot'))[0]
+    print(len(idxs))
+    X = X[idxs, :]
+    y = y[idxs]
+    print(X.shape)
+    mu_x = np.mean(X, axis=1)
+    X = X / mu_x.reshape(-1,1)
     # generate predictions
     predictions=[]
     for s in range(n_seeds):
@@ -93,18 +113,22 @@ def main():
         y_tr = y_tr.reshape((len(y_tr),))
         y_te = y_te.reshape((len(y_te),))
 
-        for idx_m, (m, k) in enumerate(zip(methods,ks)):
+        for idx_m, m in enumerate(methods):
+            for idx_k, k in enumerate(ks): 
                 predictions = []
                 for idx, x_te in enumerate(X_te):
 
-                    idx_neighbors = getNeighbors(X_tr, x_te, k, m)
+                    idx_neighbors = getNeighbors(X_tr, x_te, k, m, support)
                     result = getResponse(y_tr[idx_neighbors])
                     predictions.append(result)
 
-                results[idx_m, s] = getAccuracy(y_te, predictions)
-                print('Accuracy: ' + str(results[idx_m, s])  + '%, method ' + m + ', k = '+ str(k))
-        print('Summary -  euclidean : ' +str(np.mean(results[0, :s+1])))
-        print('Summary -  quantile  : ' +str(np.mean(results[1, :s+1])))
+                results[idx_m, idx_k, s] = getAccuracy(y_te, predictions)
+                print('Accuracy: ' + str(results[idx_m, idx_k, s])  + '%, method ' + m + ', k = '+ str(k))
 
-    np.save('results_knn_4_5', results)
-main()
+    np.save('knn_results/results_knn_{}'.format(name), results)
+
+if __name__ == '__main__':
+    names=['drilling', 'engine_idling', 'jackhammer', 'siren', 'street_music']
+    for name in names:
+        main(name)
+
