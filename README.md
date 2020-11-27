@@ -1,13 +1,17 @@
 # Wasserstein-Fourier
 
 ## A distance between time-series
-The Wasserstein-Fourrier is a distance between time series. 
-The 'toy_data.ipynb' illustrate basic properties of the distance on synthetic datasets.  
 
-## Connexion with Machine Learning
-Machine Learning models could benefit from the rich geometry induced by the WF distance. 'softmax.py' is an implementation of Softmax regression equipped with the WF distance.
+The Wasserstein-Fourier (WF) distance is a new framework for analysing stationary time series based on optimal transport distances and spectral embeddings. 
+First, we represent time series by their power spectral density (PSD), which summarises the signal energy spread across the Fourier spectrum. 
+Second, we endow the space of PSDs with the Wasserstein distance, which capitalises its unique ability to preserve the geometric information of a set of distributions. 
+These two steps enable us to define the Wasserstein-Fourier (WF) distance, which allows us to compare stationary time series even when they differ in sampling rate, length, magnitude and phase.
 
-## Real world experiments
-The notebooks '2_experiment_UrbanSound.ipynb' and '3_Activity_Recognition.ipynb' show how to operate the softmax regression algorithm on two real world datasets.
+
+## Experiments
+Basic properties and advantages of the WF distance are illustrated on synthetic data in the notebook '1_toy_data.ipynb'. 
+The remaining 4 notebooks illustrate how the WF distance can be used on real world datasets. It focuses mainly on classification problems, we propose a versions of Softmax and KNN classification algorithms equipped with the WF distance.  
+
+
 
 
