@@ -10,7 +10,7 @@ These two steps enable us to define the Wasserstein-Fourier (WF) distance, which
 
 ## Experiments
 Basic properties and advantages of the WF distance are illustrated on synthetic data in the notebook '1_toy_data.ipynb'. 
-The remaining 4 notebooks illustrate how the WF distance can be used on real world datasets. It focuses mainly on classification problems, we propose a versions of Softmax and KNN classification algorithms equipped with the WF distance.  
+The remaining 4 notebooks illustrate how the WF distance can be used on real world datasets. It focuses mainly on classification problems, we propose versions of Softmax and KNN classification algorithms equipped with the WF distance.  
 
 
 
