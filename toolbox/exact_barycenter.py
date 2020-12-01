@@ -83,25 +83,18 @@ def get_barycenter(mus, S, n, method='linear'):
     cdf_S = cdf(S)
     res = cdf_S.copy()
     res[1:] = res[1:] - res[:-1]
-    return res, Finv, Finv_bar
+    return res, Finv, Finv_bar, cdf_S
 
 
 def get_distance(quantiles, quantile_bar):
     """
     Compute the square Wasserstein distance between a set of distributions and a barycenter
 
-    Parameters
-    ----------
-
-    quantiles     :
-    quantiles_bar :
-
-    Returns
-    -------
-
-    distances :
-
     """
 
     distances = np.sum((quantiles-quantile_bar)**2, axis=1)
     return distances
+
+
+
+
