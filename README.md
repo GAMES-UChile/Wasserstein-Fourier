@@ -13,10 +13,10 @@ These two steps enable us to define the Wasserstein-Fourier (WF) distance, which
 
 ## Content
 
-* toy_data.ipynb              : main script with basic properties, advantages and applications of the WF distance illustrated on synthetic data
-* classification_exemples/    : includes 4 notebooks illustrating how the WF distance can be used for classification on real world datasets. We also propose versions of Softmax and KNN classification algorithms equipped with the WF distance.  
+* toy_data.ipynb              : highlights basic properties, advantages and applications of the WF distance on synthetic data
+* classification_exemples/    : includes 4 notebooks illustrating how the WF distance can be used for classification on real world datasets. Each notebook is dedicated to a different dataset, yet the same algorithms are used, namely softmax and KNN equipped with various distances such as KL, L2 and Wasserstein. 
 * PGA_fungi.ipynb             : principal geodesic analysis for the fungi dataset, as well as GPCA on Gaussian distributions for informative purpose
 * interpolant_C_elegans.ipynb : geodesic path between two signals from the C. elegans database using the proposed WF distance
-* toolbox/                    : various functions
+* toolbox/                    : contains the code for all the algorithms presented in the paper such as principal geodesic analysis, knn and softmax.
 * figures                     : some of the figures produce by the code
 * data                        : data used in various applications
