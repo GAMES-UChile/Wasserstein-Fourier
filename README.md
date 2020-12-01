@@ -19,4 +19,4 @@ These two steps enable us to define the Wasserstein-Fourier (WF) distance, which
 * interpolant_C_elegans.ipynb : geodesic path between two signals from the C. elegans database using the proposed WF distance
 * toolbox/                    : contains the code for all the algorithms presented in the paper such as principal geodesic analysis, knn and softmax.
 * figures                     : some of the figures produce by the code
-* data                        : small dataset and/or preprocessed dataset. Larger dataset could be freely download online [Urbansound8k](https://urbansounddataset.weebly.com/urbansound8k.html).
+* data                        : small dataset and/or preprocessed dataset. Larger dataset could be freely downloaded online: [Urbansound8k](https://urbansounddataset.weebly.com/urbansound8k.html).
