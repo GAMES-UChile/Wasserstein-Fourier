@@ -2,4 +2,6 @@
 *.swp
 __pycache__
 .ipynb_checkpoints
-Figures/*
+figures/*
+data/*
+results/*
