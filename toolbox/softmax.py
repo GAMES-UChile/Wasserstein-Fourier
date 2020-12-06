@@ -86,7 +86,7 @@ class WSoftmax:
             if self.distance == 'euclidean' or self.distance == 'KL':
                 bars[d ,:] = np.mean(B, axis=0)
             elif self.distance == 'quantile':
-                bars[d,:], _, self.q_bars[d,:] = get_barycenter(B, self.support,
+                bars[d,:], _, self.q_bars[d,:], _ = get_barycenter(B, self.support,
                                                                 self.q_support)
         return bars
 
